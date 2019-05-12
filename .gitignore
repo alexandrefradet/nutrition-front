@@ -49,3 +49,7 @@ Thumbs.db
 *.iws
 *.iml
 *.ipr
+
+# Swagger generated
+src/app/generated/*
+!src/app/generated/.gitkeep
