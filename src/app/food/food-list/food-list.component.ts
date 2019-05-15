@@ -13,7 +13,6 @@ export class FoodListComponent implements OnInit {
   constructor(private foodsService:FoodsService) { }
 
   ngOnInit() {
-    console.log("triggered")
     this.foodsService.getAllFoods().toPromise().then(foodList => {
       console.log("finished")
       this.foods = foodList

@@ -1,0 +1,17 @@
+<p>
+  food-add works!
+</p>
+
+<form [formGroup]="foodForm" (ngSubmit)="createNewFood()">
+  <input formControlName="label">
+  <input formControlName="protein">
+  <input formControlName="carbohydrate">
+  <input formControlName="fat">
+  <input formControlName="calorie" >
+  <select formControlName="foodType">
+    <option *ngFor="let type of foodTypes">
+      {{type}}
+    </option>
+  </select>
+  <button type="submit" [disabled]=foodForm.invalid>Submit</button>
+</form>
