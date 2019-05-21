@@ -1,8 +1,13 @@
-<p>
-  food-list works!
-  Voila ma bouffe :
-</p>
+<p>food-list</p>
 
-<div *ngFor="let food of foods">
-  Bouffe : {{ food.label }}
-</div>
+<form>
+  <mat-form-field>
+    <input [formControl]="foodAutocompleteControl" type="text" placeholder="Recherche" aria-label="Number" matInput
+           [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let food of foodAutoComplete | async" [value]="food.label">
+        {{ food.label | titlecase}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
