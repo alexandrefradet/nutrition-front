@@ -1,17 +1,15 @@
-<p>
-  food-add works!
-</p>
-
 <form [formGroup]="foodForm" (ngSubmit)="createNewFood()">
-  <input formControlName="label">
-  <input formControlName="protein">
-  <input formControlName="carbohydrate">
-  <input formControlName="fat">
-  <input formControlName="calorie" >
-  <select formControlName="foodType">
-    <option *ngFor="let type of foodTypes">
-      {{type}}
-    </option>
-  </select>
-  <button type="submit" [disabled]=foodForm.invalid>Submit</button>
+  <mat-form-field><input matInput formControlName="label" placeholder="Label"></mat-form-field>
+  <mat-form-field><input matInput formControlName="protein" placeholder="Protein"></mat-form-field>
+  <mat-form-field><input matInput formControlName="carbohydrate" placeholder="Carb"></mat-form-field>
+  <mat-form-field><input matInput formControlName="fat" placeholder="Fat"></mat-form-field>
+  <mat-form-field><input matInput formControlName="calorie" placeholder="Cal"></mat-form-field>
+  <mat-form-field>
+    <mat-select formControlName="foodType" placeholder="Type">
+      <mat-option *ngFor="let type of foodTypes" [value]="type">
+        {{type}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]=foodForm.invalid>Submit</button>
 </form>

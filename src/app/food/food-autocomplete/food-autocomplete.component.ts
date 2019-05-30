@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodDto, FoodsService } from 'src/app/generated';
+import { FoodDto } from 'src/app/generated';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FoodService } from '../food.service';
 
 @Component({
-  selector: 'app-food-list',
-  templateUrl: './food-list.component.html',
-  styleUrls: ['./food-list.component.sass']
+  selector: 'app-food-autocomplete',
+  templateUrl: './food-autocomplete.component.html',
+  styleUrls: ['./food-autocomplete.component.sass']
 })
-export class FoodListComponent implements OnInit {
+export class FoodAutocompleteComponent implements OnInit {
 
-  foods: FoodDto[];
   foodAutoComplete: Observable<FoodDto[]>;
   foodAutocompleteControl = new FormControl();
 

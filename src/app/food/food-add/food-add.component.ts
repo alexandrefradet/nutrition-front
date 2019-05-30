@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { FoodsService, FoodDto } from 'src/app/generated';
+import { FoodDto, FoodsService } from 'src/app/generated';
 
 @Component({
   selector: 'app-food-add',
@@ -10,35 +10,35 @@ import { FoodsService, FoodDto } from 'src/app/generated';
 })
 export class FoodAddComponent implements OnInit {
 
-  foodForm: FormGroup
+  foodForm: FormGroup;
 
-  foodTypes = Object.keys(FoodDto.FoodTypeEnum)
+  foodTypes = Object.keys(FoodDto.FoodTypeEnum);
 
   constructor(private fb: FormBuilder, private toastr: ToastrService, private foodsService: FoodsService) { }
 
   ngOnInit() {
-    this.foodForm = this.fb.group({
+    this.foodForm = this.buildFoorForm();
+  }
+
+  createNewFood() {
+    const food: FoodDto = this.foodForm.value;
+    this.foodsService.createFood(food).toPromise()
+      .then(() => {
+        this.toastr.success('Food crée');
+        this.foodForm = this.buildFoorForm();
+      })
+      .catch(() => this.toastr.error('Echec lors de la création'))
+    ;
+  }
+
+  private buildFoorForm() {
+    return this.fb.group({
       'label': ['', Validators.required],
       'protein': ['', [Validators.required, Validators.max(100), Validators.min(0)]],
       'carbohydrate': ['', [Validators.required, Validators.max(100), Validators.min(0)]],
       'fat': ['', [Validators.required, Validators.max(100), Validators.min(0)]],
       'calorie': ['', [Validators.required, Validators.max(1000), Validators.min(0)]],
-      'foodType': ['Choisir un type', Validators.required]
+      'foodType': ['', Validators.required]
     })
-  }
-
-  createNewFood() {
-    const food: FoodDto = {
-      'label': this.foodForm.get('label').value,
-      'protein': this.foodForm.get('protein').value,
-      'carbohydrate': this.foodForm.get('carbohydrate').value,
-      'fat': this.foodForm.get('fat').value,
-      'calorie': this.foodForm.get('calorie').value,
-      'foodType': this.foodForm.get('foodType').value
-    }
-    this.foodsService.createFood(food).toPromise()
-      .then(() => this.toastr.success('Food crée'))
-      .catch(() => this.toastr.error('Echec lors de la création'))
-    ;
   }
 }
