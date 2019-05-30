@@ -1,0 +1,29 @@
+<p>
+  pantry-edit works!
+</p>
+<form [formGroup]="pantryItemForm" (ngSubmit)="savePantryItem()">
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" formControlName="expirationDate"
+           placeholder="Date expiration">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input formControlName="foodDto" type="text" placeholder="Recherche" matInput [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFoodFn">
+      <mat-option *ngFor="let food of foodAutoComplete | async" [value]="food">
+        {{ food.label | titlecase}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="weight" placeholder="Parts">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="share" placeholder="Poids">
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]=pantryItemForm.invalid>Submit</button>
+</form>

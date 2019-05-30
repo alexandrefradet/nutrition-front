@@ -1,0 +1,25 @@
+<p>
+  pantry-list works!
+</p>
+<table>
+  <tr *ngFor="let item of pantryItems">
+    <td>{{item.id}}</td>
+    <td>{{item.foodDto.label}}</td>
+    <td>
+      <ng-container *ngIf="item.weight; else elseTemplate">
+        {{item.weight}}g
+        <ng-container *ngIf="item.share">
+          ({{item.share}}p)
+        </ng-container>
+      </ng-container>
+      <ng-template #elseTemplate>
+          <ng-container *ngIf="item.share; else elseTemplate">
+          {{item.share}}p
+          </ng-container>
+          <ng-template #elseTemplate>
+            </ng-template>
+      </ng-template>
+    </td>
+    <td>{{item.expirationDate}}</td>
+  </tr>
+</table>
